@@ -23,7 +23,13 @@ const Home = () => {
     id: null,
   });
   const navigate = useNavigate();
-  const { _id } = JSON.parse(localStorage.getItem("user"));
+  const userData = localStorage.getItem("user");
+  const { _id } = userData ? JSON.parse(userData) : {};
+  
+  if (!_id) {
+    navigate('/');
+    toast.error("Please log in.");
+  }
 
   const getRecipes = async () => {
     try {
@@ -88,6 +94,7 @@ const Home = () => {
         getRecipes();
         toast.success("Added.");
         setIsAddModalOpen(false);
+        setNewRecipe({...initialState, time : ""});
       } else {
         toast.error("Please try again.");
       }
@@ -95,6 +102,13 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  const logout = (e)=>{
+    e.preventDefault();
+    localStorage.clear();
+    navigate('/');
+    toast.success("Logged out!");
+  }
 
 const handleInputChange = (event, recipeType) => {
   const { name, value } = event.target;
@@ -119,15 +133,19 @@ const handleInputChange = (event, recipeType) => {
       navigate("/");
       toast.error("PLease log in.");
     }
-
     getRecipes();
   }, []);
 
   return (
     <>
+    <div className="top-btns">
+      <h1 className="logout" onClick={logout}>
+        Logout
+      </h1>
       <h1 className="add" onClick={() => setIsAddModalOpen(true)}>
         +
       </h1>
+    </div>
       <div className={`backdrop ${isAddModalOpen ? "" : "none"}`}>
         <div className="modal">
           <h4

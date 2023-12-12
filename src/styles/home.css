@@ -1,7 +1,11 @@
+.top-btns {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: rgb(214, 214, 214);
+}
+
 .add{
-  position: fixed;
-    top: 1rem;
-    right: 2rem;
     background-color: grey;
     width: 33px;
     text-align: center;
@@ -16,9 +20,25 @@
   background-color: rgb(128, 128, 128, 0.5);
 }
 
+.logout {
+  background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 7px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.logout:hover {
+  cursor: pointer;
+  color: white;
+  background-color: rgba(255, 55, 55, 0.9);
+}
+
 .recipes-container {
     display: flex;
-    height: 100vh;
+    height: 90vh;
     justify-content: center;
     align-items: center;
     background-color: rgb(214, 214, 214);
