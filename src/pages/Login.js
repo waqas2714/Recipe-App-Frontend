@@ -51,12 +51,12 @@ const Login = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const user = localStorage.getItem("user");
-  //   if (user) {
-  //     navigate("/home");
-  //   }
-  // }, []);
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      navigate("/home");
+    }
+  }, []);
 
   return (
     <div className="login-container">
