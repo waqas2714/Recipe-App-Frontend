@@ -48,6 +48,17 @@ const Home = () => {
   };
 
   const updateThisRecipe = async () => {
+
+    const {name, time, newIngredient, note} = updateRecipe;
+
+    if (name === "" || time === "" || newIngredient === "" || note === "" ) {
+      return toast.error("Please fill all the fields.");
+    }
+    
+    if (/\D/.test(updateRecipe.time)) {
+      return toast.error("Please add time with numeric values.");
+    }
+
     try {
       const { data } = await axios.put(
         `${backendUrl}/recipe/updateRecipe/${updateRecipe.id}`,
@@ -84,6 +95,16 @@ const Home = () => {
   };
 
   const addRecipe = async () => {
+    const {name, time, newIngredient, note} = newRecipe;
+
+    if (name === "" || time === "" || newIngredient === "" || note === "" ) {
+      return toast.error("Please fill all the fields.");
+    }
+    
+    if (/\D/.test(newRecipe.time)) {
+      return toast.error("Please add time with numeric values.");
+    }
+
     try {
       const { data } = await axios.post(`${backendUrl}/recipe/addRecipe`, {
         ...newRecipe,
