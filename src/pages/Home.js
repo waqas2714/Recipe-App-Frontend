@@ -25,6 +25,7 @@ const Home = () => {
   const navigate = useNavigate();
   const userData = localStorage.getItem("user");
   const { _id } = userData ? JSON.parse(userData) : {};
+  const token = localStorage.getItem('token');
   
   if (!_id) {
     navigate('/');
@@ -34,9 +35,13 @@ const Home = () => {
   const getRecipes = async () => {
     try {
       const { data } = await axios.get(
-        `${backendUrl}/recipe/getRecipes/${_id}`
+        `${backendUrl}/recipe/getRecipes`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
-
       if (recipes) {
         setRecipes(data);
       }
@@ -62,8 +67,14 @@ const Home = () => {
     try {
       const { data } = await axios.put(
         `${backendUrl}/recipe/updateRecipe/${updateRecipe.id}`,
-        updateRecipe
+        updateRecipe,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
+
       if (data) {
         getRecipes();
         toast.success("Updated");
@@ -79,8 +90,13 @@ const Home = () => {
   const deleteRecipe = async () => {
     try {
       const { data } = await axios.delete(
-        `${backendUrl}/recipe/deleteRecipe/${updateRecipe.id}`
-      );
+      `${backendUrl}/recipe/deleteRecipe/${updateRecipe.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
 
       if (data.message) {
         getRecipes();
@@ -106,10 +122,14 @@ const Home = () => {
     }
 
     try {
-      const { data } = await axios.post(`${backendUrl}/recipe/addRecipe`, {
-        ...newRecipe,
-        userId: _id,
-      });
+      const { data } = await axios.post(
+        `${backendUrl}/recipe/addRecipe`, newRecipe,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
 
       if (data) {
         getRecipes();
@@ -213,7 +233,7 @@ const handleInputChange = (event, recipeType) => {
           />
 
           <div className="action-buttons">
-            <button className="update-btn" onClick={addRecipe}>
+            <button className="update-btn" style={{backgroundColor : " rgb(133, 255, 96)"}} onClick={addRecipe}>
               Add
             </button>
           </div>
@@ -283,6 +303,7 @@ const handleInputChange = (event, recipeType) => {
             <p>Created At</p>
             <p>Main Ingredient</p>
             <p>Notes</p>
+            <p>Action</p>
           </div>
           {recipes.length > 0 ? (
             recipes.map((item, index) => {

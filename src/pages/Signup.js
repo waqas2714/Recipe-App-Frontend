@@ -34,6 +34,7 @@ const Signup = () => {
         password,
       });
       const { data } = response;
+      localStorage.setItem('token', data.token);
 
       // Check response data
       if (!data) {

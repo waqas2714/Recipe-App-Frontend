@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/home.css";
 import axios from "axios";
 import { backendUrl } from "../utils/url";
+import { CiEdit } from "react-icons/ci";
 
 const Recipe = ({
   index,
@@ -15,36 +16,55 @@ const Recipe = ({
   updateRecipe,
   setUpdateRecipe,
 }) => {
-  
-  const fillRecipe = async ()=>{
+  const fillRecipe = async () => {
     try {
-      const {data} = await axios.get(`${backendUrl}/recipe/getRecipe/${id}`);
-      if (data) {
-        setUpdateRecipe({ name : data.name, time : data.time, mainIngredient : data.mainIngredient, note : data.note, id});
-        console.log(updateRecipe);
-        setIsModalOpen(true);
-      }else{
-        console.log();
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        // Handle case where token is not available
+        return;
       }
 
+      const { data } = await axios.get(`${backendUrl}/recipe/getRecipe/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      if (data) {
+        setUpdateRecipe({
+          name: data.name,
+          time: data.time,
+          mainIngredient: data.mainIngredient,
+          note: data.note,
+          id,
+        });
+        setIsModalOpen(true);
+      } else {
+        console.log("No data received");
+      }
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
+
   return (
-    <div
-      className="contents"
-      onClick={() => {
-        fillRecipe();  
-      }}
-    >
+    <div className="contents">
       <p>{index}</p>
       <p>{name}</p>
       <p>{time + "(min)"}</p>
       <p style={{ fontSize: "0.7rem" }}>{createdAt}</p>
       <p>{mainIngredient}</p>
       <p>{note}</p>
+      <p>
+        <CiEdit
+          size={30}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            fillRecipe();
+          }}
+        />
+      </p>
     </div>
   );
 };

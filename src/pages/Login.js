@@ -34,16 +34,16 @@ const Login = () => {
         password,
       });
       const { data } = response;
-
-      // Check response data
       if (!data) {
         return;
       }
-
       const { user } = data;
-
-      // Handle successful signup
+      // Check response data
+      localStorage.setItem('token', data.token);
       localStorage.setItem("user", JSON.stringify(user));
+      if (!user.isUser) {
+        return navigate('/admin');
+      }
       navigate("/home");
     } catch (error) {
       // Handle network errors or other unexpected errors
