@@ -169,6 +169,72 @@ const Home = () => {
     }
   };
 
+  const filterRecipes = (filterBy) => {
+    let sortedRecipes;
+    if (filterBy === "newDate") {
+      if (search.length > 0) {
+        sortedRecipes = [...searchRecipes].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+      } else {
+        sortedRecipes = [...recipes].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+      }
+    } else if (filterBy === "oldDate") {
+      if (search.length > 0) {
+        sortedRecipes = [...searchRecipes].sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+      } else {
+        sortedRecipes = [...recipes].sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        );
+      }
+    } else if (filterBy === "name") {
+      if (search.length > 0) {
+        sortedRecipes = [...searchRecipes].sort((a, b) => {
+          const nameA = a.name.toLowerCase();
+          const nameB = b.name.toLowerCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
+      } else {
+        sortedRecipes = [...recipes].sort((a, b) => {
+          const nameA = a.name.toLowerCase();
+          const nameB = b.name.toLowerCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+    }
+    if (search.length > 0) {
+      setSearchRecipes(sortedRecipes);
+    }else{
+      setRecipes(sortedRecipes);
+    }
+  };
+
+  function filterObjectsBySearch(searchTerm) {
+    const filteredObjects = recipes.filter((obj) => {
+      if (typeof obj.name === "string") {
+        return obj.name.toLowerCase().includes(searchTerm.toLowerCase());
+      }
+      return false;
+    });
+
+    setSearchRecipes(filteredObjects);
+  }
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) {
@@ -178,55 +244,27 @@ const Home = () => {
     getRecipes();
   }, []);
 
-const filterRecipes = (filterBy) => {
-  let sortedRecipes;
-  if (filterBy === "newDate") {
-    sortedRecipes = [...recipes].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  } else if (filterBy === "oldDate") {
-    sortedRecipes = [...recipes].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-  } else if (filterBy === "name") {
-    sortedRecipes = [...recipes].sort((a, b) => {
-      const nameA = a.name.toLowerCase();
-      const nameB = b.name.toLowerCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-  setRecipes(sortedRecipes);
-};
-
-function filterObjectsBySearch(searchTerm) {
-  const filteredObjects = recipes.filter(obj => {
-    if (typeof obj.name === 'string') {
-      return obj.name.toLowerCase().includes(searchTerm.toLowerCase());
-    }
-    return false;
-  });
-
-  setSearchRecipes(filteredObjects);
-}
-
   return (
     <>
       <div className="search-container">
-        <input className="search" type="text" placeholder="Search Here" name="search" value={search} 
-        onChange={(e)=>{
-          setSearch(e.target.value);
-          filterObjectsBySearch(e.target.value);
-        }}/>
+        <input
+          className="search"
+          type="text"
+          placeholder="Search Here"
+          name="search"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            filterObjectsBySearch(e.target.value);
+          }}
+        />
       </div>
 
       <div className="top-btns" onClick={() => setIsFilterOpen(false)}>
         <h1 className="logout" onClick={logout}>
           Logout
         </h1>
-        <div>
-      </div>
+        <div></div>
         <h1 className="add" onClick={() => setIsAddModalOpen(true)}>
           +
         </h1>
@@ -349,9 +387,15 @@ function filterObjectsBySearch(searchTerm) {
           onClick={() => setIsFilterOpen(!isFilterOpen)}
         />
         <div className={`filter-options ${!isFilterOpen && "none"}`}>
-          <div className="option" onClick={()=>filterRecipes("newDate")}>Recent</div>
-          <div className="option" onClick={()=>filterRecipes("oldDate")}>Old</div>
-          <div className="option" onClick={()=>filterRecipes("name")}>Name</div>
+          <div className="option" onClick={() => filterRecipes("newDate")}>
+            Recent
+          </div>
+          <div className="option" onClick={() => filterRecipes("oldDate")}>
+            Old
+          </div>
+          <div className="option" onClick={() => filterRecipes("name")}>
+            Name
+          </div>
         </div>
       </div>
       <div className="recipes-container" onClick={() => setIsFilterOpen(false)}>
@@ -366,80 +410,81 @@ function filterObjectsBySearch(searchTerm) {
             <p>Action</p>
           </div>
           {recipes.length > 0 ? (
-            search.length > 0 ?
-            searchRecipes.map((item, index) => {
-              const dateString = item.createdAt;
-              const date = new Date(dateString);
-              const simplifiedFormat = `${date.getFullYear()}-${(
-                date.getMonth() + 1
-              )
-                .toString()
-                .padStart(2, "0")}-${date
-                .getDate()
-                .toString()
-                .padStart(2, "0")} ${date
-                .getHours()
-                .toString()
-                .padStart(2, "0")}:${date
-                .getMinutes()
-                .toString()
-                .padStart(2, "0")}:${date
-                .getSeconds()
-                .toString()
-                .padStart(2, "0")}`;
+            search.length > 0 ? (
+              searchRecipes.map((item, index) => {
+                const dateString = item.createdAt;
+                const date = new Date(dateString);
+                const simplifiedFormat = `${date.getFullYear()}-${(
+                  date.getMonth() + 1
+                )
+                  .toString()
+                  .padStart(2, "0")}-${date
+                  .getDate()
+                  .toString()
+                  .padStart(2, "0")} ${date
+                  .getHours()
+                  .toString()
+                  .padStart(2, "0")}:${date
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, "0")}:${date
+                  .getSeconds()
+                  .toString()
+                  .padStart(2, "0")}`;
 
-              return (
-                <Recipe
-                  index={index + 1}
-                  name={item.name}
-                  time={item.time}
-                  createdAt={simplifiedFormat}
-                  mainIngredient={item.mainIngredient}
-                  note={item.note}
-                  id={item._id}
-                  setIsModalOpen={setIsModalOpen}
-                  updateRecipe={updateRecipe}
-                  setUpdateRecipe={setUpdateRecipe}
-                />
-              );
-            })
-            :
-            recipes.map((item, index) => {
-              const dateString = item.createdAt;
-              const date = new Date(dateString);
-              const simplifiedFormat = `${date.getFullYear()}-${(
-                date.getMonth() + 1
-              )
-                .toString()
-                .padStart(2, "0")}-${date
-                .getDate()
-                .toString()
-                .padStart(2, "0")} ${date
-                .getHours()
-                .toString()
-                .padStart(2, "0")}:${date
-                .getMinutes()
-                .toString()
-                .padStart(2, "0")}:${date
-                .getSeconds()
-                .toString()
-                .padStart(2, "0")}`;
+                return (
+                  <Recipe
+                    index={index + 1}
+                    name={item.name}
+                    time={item.time}
+                    createdAt={simplifiedFormat}
+                    mainIngredient={item.mainIngredient}
+                    note={item.note}
+                    id={item._id}
+                    setIsModalOpen={setIsModalOpen}
+                    updateRecipe={updateRecipe}
+                    setUpdateRecipe={setUpdateRecipe}
+                  />
+                );
+              })
+            ) : (
+              recipes.map((item, index) => {
+                const dateString = item.createdAt;
+                const date = new Date(dateString);
+                const simplifiedFormat = `${date.getFullYear()}-${(
+                  date.getMonth() + 1
+                )
+                  .toString()
+                  .padStart(2, "0")}-${date
+                  .getDate()
+                  .toString()
+                  .padStart(2, "0")} ${date
+                  .getHours()
+                  .toString()
+                  .padStart(2, "0")}:${date
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, "0")}:${date
+                  .getSeconds()
+                  .toString()
+                  .padStart(2, "0")}`;
 
-              return (
-                <Recipe
-                  index={index + 1}
-                  name={item.name}
-                  time={item.time}
-                  createdAt={simplifiedFormat}
-                  mainIngredient={item.mainIngredient}
-                  note={item.note}
-                  id={item._id}
-                  setIsModalOpen={setIsModalOpen}
-                  updateRecipe={updateRecipe}
-                  setUpdateRecipe={setUpdateRecipe}
-                />
-              );
-            })
+                return (
+                  <Recipe
+                    index={index + 1}
+                    name={item.name}
+                    time={item.time}
+                    createdAt={simplifiedFormat}
+                    mainIngredient={item.mainIngredient}
+                    note={item.note}
+                    id={item._id}
+                    setIsModalOpen={setIsModalOpen}
+                    updateRecipe={updateRecipe}
+                    setUpdateRecipe={setUpdateRecipe}
+                  />
+                );
+              })
+            )
           ) : (
             <h4 style={{ textAlign: "center", marginTop: "1rem" }}>
               No recipes added yet.
