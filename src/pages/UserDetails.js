@@ -59,7 +59,7 @@ const UserDetails = (props) => {
       </div>
       <div className="recipes-container">
         <div className="recipes-table">
-          <div className="contents headings">
+          <div className="contents-admin headings">
             <p>No.</p>
             <p>Name</p>
             <p>Time{"(min)"}</p>

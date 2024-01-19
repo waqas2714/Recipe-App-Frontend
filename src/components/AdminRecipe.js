@@ -14,7 +14,7 @@ const AdminRecipe = ({
 }) => {
   return (
     <div
-      className="contents"
+      className="contents-admin"
     >
       <p>{index}</p>
       <p>{name}</p>
