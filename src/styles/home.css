@@ -5,13 +5,13 @@
   background-color: rgb(214, 214, 214);
 }
 
-.add{
-    background-color: grey;
-    width: 33px;
-    text-align: center;
-    border-radius: 6px;    
-    transition: all 0.2s ease-in-out;
-    font-weight: 400;
+.add {
+  background-color: grey;
+  width: 33px;
+  text-align: center;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  font-weight: 400;
 }
 
 .add:hover {
@@ -21,15 +21,14 @@
 }
 
 .logout {
-  background-color: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    padding: 7px;
-    text-align: center;
-    transition: all 0.3s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 7px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
 }
-
 
 .logout:hover {
   cursor: pointer;
@@ -38,16 +37,16 @@
 }
 
 .logout-admin {
-  background-color: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    padding: 7px;
-    text-align: center;
-    transition: all 0.3s ease-in-out;
-    position: fixed;
-    top : 8px;
-    left : 16px
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 7px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  position: fixed;
+  top: 8px;
+  left: 16px;
 }
 
 .logout-admin:hover {
@@ -57,23 +56,31 @@
 }
 
 .recipes-container {
-    display: flex;
-    height: 90vh;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(214, 214, 214);
+  display: flex;
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(214, 214, 214);
 }
 
 .recipes-table {
-    width: 95%;
-    min-height: 28%;
-    max-height: 70%;
-    overflow: auto;
+  width: 95%;
+  max-width: 890px;
+  min-height: 28%;
+  max-height: 70%;
+  overflow: auto;
 }
 
 .contents {
-    display: flex;
-    height: 100px;
+  display: flex;
+  height: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.contents:hover {
+  cursor: pointer;
+  background-color: rgb(185, 185, 185);
+  height: 110px;
 }
 
 .contents-admin {
@@ -82,17 +89,18 @@
 }
 
 .contents > p {
-    width: calc(100%/6.5);
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
+  width: calc(100% / 5);
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  font-size: 0.8rem;
 }
 
 .contents-admin > p {
-  width: calc(100%/6);
+  width: calc(100% / 6);
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   display: flex;
@@ -100,6 +108,7 @@
   align-items: center;
   overflow: auto;
 }
+
 .headings {
   background-color: #a0a0a0;
   font-weight: 700;
@@ -109,134 +118,181 @@
   width: 100%;
 }
 
+.headings:hover {
+  background-color: #a0a0a0;
+  height: 50px;
+  cursor: auto;
+}
 
 /* Width and Height of the scrollbar */
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 12px;
-  }
-  
-  /* Track (the area on which the thumb drags) */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Change this to the color you want */
-  }
-  
-  /* Handle (the draggable part of the scrollbar) */
-  ::-webkit-scrollbar-thumb {
-    background: #888; /* Change this to the color you want */
-    border-radius: 6px; /* Optional: round the corners of the thumb */
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Change this to the color you want on hover */
-  }
-  
-  .backdrop {
-    position: fixed;
-    top: 0;
-    background-color: rgba(0,0,0,0.7);
-    width: 100vw;
-    height: 100vh;
-    z-index: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  width: 5px;
+  height: 12px;
+}
 
+/* Track (the area on which the thumb drags) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Change this to the color you want */
+}
 
-  .modal{
-    height: 54vh;
-    width: 80vw;
-    background-color: white;
-    border-radius: 1rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    padding: 4px 32px;
-  }
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Change this to the color you want */
+  border-radius: 6px; /* Optional: round the corners of the thumb */
+}
 
-  .modal-label {
-    font-size: 1rem;
-    font-weight: 700;
-  }
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Change this to the color you want on hover */
+}
 
-  .modal-input {
-    border: 1px solid black;
-    width: 100%;
-    margin-top: 4px;
-    margin-bottom: 7px;
-  }
+.backdrop {
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .action-buttons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+.modal {
+  height: 54vh;
+  width: 80vw;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 32px;
+}
 
-  .update-btn{
-    height: 2rem;
-    width: 75px;
-    align-self: center;
-    background-color: rgb(255, 255, 74);
-    border: 0px;
-    border-radius: 1rem;
-    color: white;
-    padding: 5px;
-    cursor: pointer;
-  }
+.recipe-detail {
+  height: 65vh;
+  padding: 26px;
+}
 
-  .delete-btn {
-    height: 2rem;
-    width: 75px;
-    align-self: center;
-    background-color: rgb(255, 59, 59);
-    border: 0px;
-    border-radius: 1rem;
-    color: white;
-    padding: 5px;
-    cursor: pointer;
-  }
+.name-time {
+  display: flex;
+}
 
-  .none {
-    display: none;
-  }
+.name {
+  width: 50%;
+  height: 50px;
+  /* padding: 10px 0px; */
+  display: flex;
+  align-items: center;
+}
 
-  .filter {
-    position: absolute;
-    right: 5rem;
-    top: 1rem;
-  }
+.name > p {
+  margin-left: 1rem;
+}
 
-  .filter:hover {
-    cursor: pointer;
-    color: white;
-  }
+.time {
+  width: 50%;
+  height: 50px;
+  /* padding: 10px 0px; */
+  display: flex;
+  align-items: center;
+}
 
-  .filter-options {
-    position: absolute;
-    right: 7rem;
-    top: 2rem;
-    background-color: white;
-    border: 1px solid black;
-  }
-  
-  .option {
-    padding: 0.2rem;
-  }
+.time > p {
+  margin-left: 1rem;
+}
 
-  .option:hover {
-    cursor: pointer;
-    color: white;
-    background-color: black;
-  }
+.created-at {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
 
-  .search-container {
-    position: absolute;
-    right: 7rem;
-    top: 1rem;
-  }
+.created-at > p {
+  margin-left: 1rem;
+}
 
-  .search {
-    width: 10rem;
-  }
+.modal-label {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.modal-input {
+  border: 1px solid black;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 7px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.update-btn {
+  height: 2rem;
+  width: 75px;
+  align-self: center;
+  background-color: rgb(235, 235, 26);
+  border: 0px;
+  border-radius: 1rem;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  height: 2rem;
+  width: 75px;
+  align-self: center;
+  background-color: rgb(255, 59, 59);
+  border: 0px;
+  border-radius: 1rem;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.none {
+  display: none;
+}
+
+.filter {
+  position: absolute;
+  right: 5rem;
+  top: 1rem;
+}
+
+.filter:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.filter-options {
+  position: absolute;
+  right: 7rem;
+  top: 2rem;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.option {
+  padding: 0.2rem;
+}
+
+.option:hover {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+.search-container {
+  position: absolute;
+  right: 7rem;
+  top: 1rem;
+}
+
+.search {
+  width: 10rem;
+}

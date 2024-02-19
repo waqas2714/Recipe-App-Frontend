@@ -15,6 +15,7 @@ const Recipe = ({
   setIsModalOpen,
   updateRecipe,
   setUpdateRecipe,
+  setIsDetailModalOpen
 }) => {
   const fillRecipe = async () => {
     try {
@@ -49,20 +50,20 @@ const Recipe = ({
   };
 
   return (
-    <div className="contents">
+    <div className="contents" onClick={()=>setIsDetailModalOpen(true)}>
       <p>{index}</p>
       <p>{name}</p>
       <p>{time + "(min)"}</p>
       <p style={{ fontSize: "0.7rem" }}>{createdAt}</p>
-      <p>{mainIngredient}</p>
-      <p>{note}</p>
-      <p>
+      {/* <p>{mainIngredient}</p>
+      <p>{note}</p> */}
+      <p onClick={() => {
+            fillRecipe();
+          }}
+      >
         <CiEdit
           size={30}
           style={{ cursor: "pointer" }}
-          onClick={() => {
-            fillRecipe();
-          }}
         />
       </p>
     </div>

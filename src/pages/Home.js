@@ -6,6 +6,7 @@ import Recipe from "../components/Recipe";
 import axios from "axios";
 import { backendUrl } from "../utils/url";
 import { CiFilter } from "react-icons/ci";
+import { RiShutDownLine } from "react-icons/ri";
 
 const initialState = {
   name: "",
@@ -20,6 +21,7 @@ const Home = () => {
   const [newRecipe, setNewRecipe] = useState(initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -220,7 +222,7 @@ const Home = () => {
     }
     if (search.length > 0) {
       setSearchRecipes(sortedRecipes);
-    }else{
+    } else {
       setRecipes(sortedRecipes);
     }
   };
@@ -261,12 +263,12 @@ const Home = () => {
       </div>
 
       <div className="top-btns" onClick={() => setIsFilterOpen(false)}>
-        <h1 className="logout" onClick={logout}>
-          Logout
-        </h1>
-        <div></div>
         <h1 className="add" onClick={() => setIsAddModalOpen(true)}>
           +
+        </h1>
+        <div></div>
+        <h1 onClick={logout}>
+          <RiShutDownLine size={35} className="logout" />
         </h1>
       </div>
       <div className={`backdrop ${isAddModalOpen ? "" : "none"}`}>
@@ -317,7 +319,7 @@ const Home = () => {
           <div className="action-buttons">
             <button
               className="update-btn"
-              style={{ backgroundColor: " rgb(133, 255, 96)" }}
+              style={{ backgroundColor: "rgb(84 199 49)" }}
               onClick={addRecipe}
             >
               Add
@@ -398,6 +400,64 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      <div className={`backdrop ${isDetailModalOpen ? "" : "none"}`}>
+        <div className="recipe-detail modal" style={{ position: "relative" }}>
+          <h4
+            style={{
+              position: "absolute",
+              right: "13px",
+              top: "5px",
+              fontSize: "1.5rem",
+              cursor : "pointer"
+            }}
+            onClick={() => setIsDetailModalOpen(false)}
+          >
+            X
+          </h4>
+          <div className="name-time">
+            <div className="name">
+              <h2>Name:</h2>
+              <p>abcde</p>
+            </div>
+            <div className="time">
+              <h2>Time:</h2>
+              <p>abcde</p>
+            </div>
+          </div>
+          <div className="created-at">
+            <h2>Created At</h2>
+            <p>10-20-23</p>
+          </div>
+          <h2>Main Ingredients</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
+            quasi ex excepturi minus eveniet vitae assumenda, quo atque? Sit,
+            ea?
+          </p>
+          <h2>Note</h2>
+          <p style={{ overflow: "auto" }}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+            possimus ut neque delectus. Eius odit, ullam praesentium unde facere
+            vel, minima facilis laborum debitis quo doloribus, animi ad repellat
+            officiis?Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Asperiores rerum laudantium illo minus fugiat accusantium
+            laboriosam, est in quibusdam sit aperiam sequi, vero et doloremque
+            magni nemo tenetur temporibus ut?Lorem ipsum dolor sit amet
+            consectetur, adipisicing elit. Voluptate necessitatibus unde minima
+            quidem laborum veritatis iure! Doloremque, sit doloribus harum
+            molestias minus placeat quasi ullam modi omnis voluptas nam
+            similique?Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Aspernatur magni fuga dolorum, iusto eum corrupti odio, veritatis
+            incidunt dolorem sint id sequi ipsa ab quisquam, possimus
+            praesentium nisi accusamus distinctio! Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Unde autem a nesciunt distinctio.
+            Voluptatum consectetur doloremque nihil vel, porro ex doloribus iure
+            nesciunt rem asperiores quis. Placeat repellat ab dolore?{" "}
+          </p>
+        </div>
+      </div>
+
       <div className="recipes-container" onClick={() => setIsFilterOpen(false)}>
         <div className="recipes-table">
           <div className="contents headings">
@@ -405,8 +465,8 @@ const Home = () => {
             <p>Name</p>
             <p>Time{"(min)"}</p>
             <p>Created At</p>
-            <p>Main Ingredient</p>
-            <p>Notes</p>
+            {/* <p>Main Ingredient</p>
+            <p>Notes</p> */}
             <p>Action</p>
           </div>
           {recipes.length > 0 ? (
@@ -479,6 +539,7 @@ const Home = () => {
                     note={item.note}
                     id={item._id}
                     setIsModalOpen={setIsModalOpen}
+                    setIsDetailModalOpen={setIsDetailModalOpen}
                     updateRecipe={updateRecipe}
                     setUpdateRecipe={setUpdateRecipe}
                   />
