@@ -15,10 +15,19 @@ const initialState = {
   note: "",
 };
 
+const recipeDetailsInitialState = {
+  name: "",
+  time: "",
+  createdAt: "",
+  mainIngredient: "",
+  note: "",
+};
+
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [searchRecipes, setSearchRecipes] = useState([]);
   const [newRecipe, setNewRecipe] = useState(initialState);
+  const [recipeDetails, setRecipeDetails] = useState(recipeDetailsInitialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -409,52 +418,37 @@ const Home = () => {
               right: "13px",
               top: "5px",
               fontSize: "1.5rem",
-              cursor : "pointer"
+              cursor: "pointer",
             }}
-            onClick={() => setIsDetailModalOpen(false)}
+            onClick={() => {
+              setRecipeDetails(recipeDetailsInitialState);
+              setIsDetailModalOpen(false);
+            }}
           >
             X
           </h4>
           <div className="name-time">
             <div className="name">
               <h2>Name:</h2>
-              <p>abcde</p>
+              <p>{recipeDetails.name}</p>
             </div>
             <div className="time">
               <h2>Time:</h2>
-              <p>abcde</p>
+              <p>{recipeDetails.time}</p>
             </div>
           </div>
           <div className="created-at">
             <h2>Created At</h2>
-            <p>10-20-23</p>
+            <p>{recipeDetails.createdAt}</p>
           </div>
-          <h2>Main Ingredients</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-            quasi ex excepturi minus eveniet vitae assumenda, quo atque? Sit,
-            ea?
-          </p>
-          <h2>Note</h2>
-          <p style={{ overflow: "auto" }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-            possimus ut neque delectus. Eius odit, ullam praesentium unde facere
-            vel, minima facilis laborum debitis quo doloribus, animi ad repellat
-            officiis?Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Asperiores rerum laudantium illo minus fugiat accusantium
-            laboriosam, est in quibusdam sit aperiam sequi, vero et doloremque
-            magni nemo tenetur temporibus ut?Lorem ipsum dolor sit amet
-            consectetur, adipisicing elit. Voluptate necessitatibus unde minima
-            quidem laborum veritatis iure! Doloremque, sit doloribus harum
-            molestias minus placeat quasi ullam modi omnis voluptas nam
-            similique?Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Aspernatur magni fuga dolorum, iusto eum corrupti odio, veritatis
-            incidunt dolorem sint id sequi ipsa ab quisquam, possimus
-            praesentium nisi accusamus distinctio! Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Unde autem a nesciunt distinctio.
-            Voluptatum consectetur doloremque nihil vel, porro ex doloribus iure
-            nesciunt rem asperiores quis. Placeat repellat ab dolore?{" "}
-          </p>
+          <div className="main-ingredient">
+            <h2>Main Ingredients</h2>
+            <p>{recipeDetails.mainIngredient}</p>
+          </div>
+          <div className="detail-note" style={{ overflow: "auto" }}>
+            <h2>Note</h2>
+            <p>{recipeDetails.note}</p>
+          </div>
         </div>
       </div>
 
@@ -504,6 +498,7 @@ const Home = () => {
                     setIsModalOpen={setIsModalOpen}
                     updateRecipe={updateRecipe}
                     setUpdateRecipe={setUpdateRecipe}
+                    setRecipeDetails={setRecipeDetails}
                   />
                 );
               })
@@ -542,6 +537,7 @@ const Home = () => {
                     setIsDetailModalOpen={setIsDetailModalOpen}
                     updateRecipe={updateRecipe}
                     setUpdateRecipe={setUpdateRecipe}
+                    setRecipeDetails={setRecipeDetails}
                   />
                 );
               })

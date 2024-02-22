@@ -15,10 +15,14 @@ const Recipe = ({
   setIsModalOpen,
   updateRecipe,
   setUpdateRecipe,
-  setIsDetailModalOpen
+  setIsDetailModalOpen,
+  setRecipeDetails,
 }) => {
-  const fillRecipe = async () => {
+  const fillRecipe = async (event) => {
     try {
+
+      event.stopPropagation();
+      
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -50,21 +54,32 @@ const Recipe = ({
   };
 
   return (
-    <div className="contents" onClick={()=>setIsDetailModalOpen(true)}>
+    <div
+      className="contents"
+      onClick={() => {
+        setRecipeDetails({
+          name,
+          time,
+          createdAt,
+          mainIngredient,
+          note,
+        });
+        setIsDetailModalOpen(true);
+      }}
+      
+    >
       <p>{index}</p>
       <p>{name}</p>
       <p>{time + "(min)"}</p>
       <p style={{ fontSize: "0.7rem" }}>{createdAt}</p>
       {/* <p>{mainIngredient}</p>
       <p>{note}</p> */}
-      <p onClick={() => {
-            fillRecipe();
-          }}
+      <p
+        onClick={(event) => {
+          fillRecipe(event);
+        }}
       >
-        <CiEdit
-          size={30}
-          style={{ cursor: "pointer" }}
-        />
+        <CiEdit size={30} style={{ cursor: "pointer" }} />
       </p>
     </div>
   );

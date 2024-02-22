@@ -172,14 +172,16 @@
 .recipe-detail {
   height: 65vh;
   padding: 26px;
+  overflow: auto;
 }
 
 .name-time {
   display: flex;
+  justify-content: space-between;
 }
 
 .name {
-  width: 50%;
+  width: 48%;
   height: 50px;
   /* padding: 10px 0px; */
   display: flex;
@@ -191,7 +193,7 @@
 }
 
 .time {
-  width: 50%;
+  width: 48%;
   height: 50px;
   /* padding: 10px 0px; */
   display: flex;
@@ -201,6 +203,18 @@
 .time > p {
   margin-left: 1rem;
 }
+
+.name,
+.time,
+.created-at,
+.main-ingredient,
+.detail-note {
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  margin: 5px;
+}
+
 
 .created-at {
   display: flex;
@@ -295,4 +309,10 @@
 
 .search {
   width: 10rem;
+}
+
+
+.z-up {
+  position: relative;
+  z-index: 100;
 }
