@@ -1,6 +1,6 @@
 .top-btns {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 12px 24px;
   background-color: rgb(214, 214, 214);
 }
@@ -309,6 +309,7 @@
 
 .search {
   width: 10rem;
+  margin-right: 1rem;
 }
 
 
