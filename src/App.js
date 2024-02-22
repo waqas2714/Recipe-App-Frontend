@@ -7,8 +7,8 @@ import {
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
-import Admin from './pages/Admin';
 import UserDetails from './pages/UserDetails';
+import AdminSingle from './pages/AdminSingle';
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
       <Route path='/' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/home' element={<Home />} />
-      <Route path='/admin' element={<Admin />} />
+      <Route path='/admin' element={<AdminSingle />} />
       <Route path='/admin/:userId' element={<UserDetails />} />
     </Routes>
     </Router>
